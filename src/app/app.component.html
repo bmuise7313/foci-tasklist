@@ -1,0 +1,58 @@
+<div class="container">
+  <h1>{{ title }}</h1>
+  <div class="filter-container">
+    <label for="filter">Filter Tasks:</label>
+<select id="filter" (change)="onFilterChange($event)">
+  <option value="all">All</option>
+  <option value="completed">Completed</option>
+  <option value="incomplete">Incomplete</option>
+  <option value="overdue">Overdue</option>
+</select>
+  </div>
+  <button (click)="openPopup()">Add Task</button>
+  <button [disabled]="!selectedTask" (click)="openEditPopup()">Edit Task</button>
+  <button [disabled]="!selectedTask" (click)="openDeletePopup()">Delete Task</button>
+  <button [disabled]="!selectedTask" (click)="toggleCompletion()">
+    {{ selectedTask?.isCompleted ? 'Mark Incomplete' : 'Mark Completed' }}
+  </button>
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Completed</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let task of filteredTasks"
+        [class.selected]="task === selectedTask"
+        [class.completed]="task.isCompleted"
+        [class.past-due]="!task.isCompleted && isPastDue(task.dueDate)"
+        (click)="selectTask(task)"
+      >
+        <td>{{ task.title }}</td>
+        <td>{{ task.description || 'N/A' }}</td>
+        <td>{{ task.dueDate || 'N/A' }}</td>
+        <td>{{ task.isCompleted ? 'Yes' : 'No' }}</td>
+        <td>{{ task.createdAt }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-add-task-popup
+    *ngIf="showPopup"
+    [task]="selectedTask"
+    (close)="closePopup()"
+  ></app-add-task-popup>
+
+  <!-- Delete Confirmation Popup -->
+  <div class="popup" *ngIf="showDeletePopup">
+    <h2>Confirm Deletion</h2>
+    <p>Are you sure you want to delete the task "{{ selectedTask?.title }}"?</p>
+    <button (click)="deleteTask()">Yes, Delete</button>
+    <button (click)="closeDeletePopup()">Cancel</button>
+  </div>
+</div>
