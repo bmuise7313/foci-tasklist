@@ -16,30 +16,36 @@ To run this application, ensure the following are installed on your system:
    cd foci-tasklist
 
 2. Install the required dependencies:
-    npm install
+   ```
+   npm install
 
 ## Running the Application
-    To start both the API server and the Angular development server, run the following command:
-        npm run start:all
+
+- To start both the API server and the Angular development server, run the following command:
+    ```
+    npm run start:all
+    
 
 This command will:
 
-Start the API server on port 3000 using npx ts-node src/api/api.ts.
-Start the Angular development server on port 4200 using ng serve.
-Automatically open the application in your default browser at http://localhost:4200.
+ - Start the API server on port 3000 using npx ts-node src/api/api.ts.
+ - Start the Angular development server on port 4200 using ng serve.
+ - Automatically open the application in your default browser at http://localhost:4200.
 
-Individual Commands
+ ## Individual Commands
 If you prefer to run the API and frontend servers separately, use the following commands:
 
  - Start the API server:
-        npm run start:api
+    ```
+    npm run start:api
 
  - Start the Angular development server:
-        npm run start:client
+    ```
+    npm run start:client
     
 ## Application Details
-    API Server: Runs on http://localhost:3000
-    Web Application: Runs on http://localhost:4200
+ - API Server: Runs on http://localhost:3000
+ - Web Application: Runs on http://localhost:4200
 
 ## Features
 - Add, edit, delete, and filter tasks
