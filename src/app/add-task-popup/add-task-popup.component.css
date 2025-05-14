@@ -34,6 +34,12 @@ input, textarea {
   font-family: Arial, sans-serif; /* Match font family */
 }
 
+input[type="date"] {
+  width: 33% !important;
+  min-width: 80px;
+  max-width: 120px;
+}
+
 button {
   margin: 5px;
   padding: 10px;
@@ -50,4 +56,11 @@ button {
 button:hover {
   background-color: #1565c0; /* Darker blue */
   color: #ffffff; /* White text */
+}
+
+.error {
+  color: #ff5252;
+  font-size: 13px;
+  margin-top: 2px;
+  display: block;
 }

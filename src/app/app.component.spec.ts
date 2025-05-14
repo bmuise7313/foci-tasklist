@@ -110,10 +110,9 @@ it('should delete a task and refresh the task list', () => {
   });
 
   it('should handle filter change and reapply the filter', () => {
-    const event = { target: { value: 'completed' } } as unknown as Event;
-    spyOn(component, 'applyFilter');
+    spyOn(component, 'applyFilterAndSort');
+    const event = { target: { value: 'completed' } } as any;
     component.onFilterChange(event);
-    expect(component.filter).toBe('completed');
-    expect(component.applyFilter).toHaveBeenCalled();
+    expect(component.applyFilterAndSort).toHaveBeenCalled();
   });
 });

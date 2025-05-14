@@ -20,13 +20,15 @@ export class AppComponent implements OnInit {
   showDeletePopup = false; // Track delete confirmation popup visibility
   selectedTask: any = null; // Track the selected task
   message: string | null = null; // Message to display to the user
+  sortField: 'dueDate' | 'createdAt' | 'title' = 'dueDate';
+  sortOrder: 'asc' | 'desc' = 'asc';
 
   constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.taskService.tasks$.subscribe((tasks) => {
-      this.tasksList = this.sortTasksByDueDate(tasks);
-      this.applyFilter();
+      this.tasksList = tasks;
+      this.applyFilterAndSort();
     });
     this.taskService.fetchTasks();
   }
@@ -119,7 +121,57 @@ export class AppComponent implements OnInit {
   onFilterChange(event: Event): void {
     const filter = (event.target as HTMLSelectElement).value; // Cast to HTMLSelectElement
     this.filter = filter; // Update the filter
-    this.applyFilter(); // Reapply the filter
+    this.applyFilterAndSort(); // Reapply the filter
+  }
+
+  onSortChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value as 'dueDate' | 'createdAt' | 'title';
+    this.sortField = value;
+    this.applyFilterAndSort();
+  }
+
+  toggleSortOrder(): void {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.applyFilterAndSort();
+  }
+
+  applyFilterAndSort(): void {
+    // Apply filter first
+    let tasks = [];
+    if (this.filter === 'completed') {
+      tasks = this.tasksList.filter((task) => task.isCompleted);
+    } else if (this.filter === 'incomplete') {
+      tasks = this.tasksList.filter((task) => !task.isCompleted);
+    } else if (this.filter === 'overdue') {
+      tasks = this.tasksList.filter(
+        (task) => !task.isCompleted && this.isPastDue(task.dueDate)
+      );
+    } else {
+      tasks = [...this.tasksList];
+    }
+
+    // Apply sorting
+    tasks.sort((a, b) => {
+      let aValue: number | string, bValue: number | string;
+      if (this.sortField === 'dueDate') {
+        aValue = a.dueDate ? new Date(a.dueDate).getTime() : Infinity;
+        bValue = b.dueDate ? new Date(b.dueDate).getTime() : Infinity;
+      } else if (this.sortField === 'createdAt') {
+        aValue = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        bValue = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      } else if (this.sortField === 'title') {
+        aValue = a.title?.toLowerCase() ?? '';
+        bValue = b.title?.toLowerCase() ?? '';
+      } else {
+        aValue = '';
+        bValue = '';
+      }
+      if ((aValue ?? '') < (bValue ?? '')) return this.sortOrder === 'asc' ? -1 : 1;
+      if ((aValue ?? '') > (bValue ?? '')) return this.sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    this.filteredTasks = tasks;
   }
 
   // Example: Add a task

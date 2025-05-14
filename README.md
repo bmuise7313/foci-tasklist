@@ -5,7 +5,7 @@ This project is a task management application built with Angular for the fronten
 ## Prerequisites
 
 To run this application, ensure the following are installed on your system:
-- --Node.js--: Version 18.19 or higher (Developed on version 24.0.1)
+- --Node.js--: Version 18.19 or higher 
 - --npm--: Comes bundled with Node.js
 
 ## Installation
@@ -32,7 +32,7 @@ This command will:
  - Start the Angular development server on port 4200 using ng serve.
  - Automatically open the application in your default browser at http://localhost:4200.
 
- ## Individual Commands
+## Individual Commands
 If you prefer to run the API and frontend servers separately, use the following commands:
 
  - Start the API server:
@@ -42,10 +42,26 @@ If you prefer to run the API and frontend servers separately, use the following 
  - Start the Angular development server:
     ```
     npm run start:client
-    
+
+## Unit Testing
+Unit testing is conducted using Jasmine/Karma, once the application is set up using the steps above, run the following command to initiate the tests
+
+    ng test
+
+## API Endpoints
+Here are the simple API endpoints for task management
+
+    GET /tasks — Get all tasks
+    GET /tasks/:id — Get a single task by ID
+    POST /tasks — Create a new task
+    PUT /tasks/:id — Update a task by ID
+    DELETE /tasks/:id — Delete a task by ID
+
+
 ## Application Details
  - API Server: Runs on http://localhost:3000
  - Web Application: Runs on http://localhost:4200
+
 
 ## Features
 - Add, edit, delete, and filter tasks
@@ -53,7 +69,11 @@ If you prefer to run the API and frontend servers separately, use the following 
     - Completed
     - Incomplete
     - Overdue
-- Tasks are sorted by due date, with tasks without a due date appearing at the bottom.
+    
+- Sort Tasks by:
+    - Due Date (default)
+    - Creation Date
+    - Title
 
 ## System Requirements
 - Operating System: Windows, macOS, or Linux
