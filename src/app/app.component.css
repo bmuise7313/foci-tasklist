@@ -1,5 +1,6 @@
 /* Dark theme background and container styling */
-html, body {
+html,
+body {
   height: 100%; /* Ensure the body and html cover the full height of the viewport */
 
   background-color: #1e1e1e; /* Dark grey background */
@@ -16,10 +17,10 @@ html, body {
   justify-content: flex-start; /* Align contents to the top */
   align-items: center; /* Center contents horizontally */
   min-height: 100vh; /* Ensure it covers the full height */
-    margin-top: -10px; /* Remove default margin */
-    margin-left: -19px;
-    margin-bottom: -19px;
-    margin-right: -19px;
+  margin-top: -10px; /* Remove default margin */
+  margin-left: -19px;
+  margin-bottom: -19px;
+  margin-right: -19px;
   padding: 0; /* Remove default padding */
   min-width: 100vw; /* Ensure it covers the full width */
   background-color: #1e1e1e; /* Slightly lighter dark grey */
@@ -67,7 +68,7 @@ h1 {
   width: 60%; /* Set the width to triple its original size */
   max-width: 800px; /* Optional: Limit the maximum width for larger screens */
   box-sizing: border-box; /* Include padding in the width calculation */
-    font-size: 16px; /* Match card and button font size */
+  font-size: 16px; /* Match card and button font size */
   font-family: Arial, sans-serif; /* Match card and button font family */
 }
 
@@ -134,7 +135,7 @@ h1 {
 /* Task card styling */
 .task-card {
   background: #1e88e5; /* Blue background */
-  border: 1px solid #000000; 
+  border: 1px solid #000000;
   border-radius: 8px;
   padding: 15px;
   width: 80%; /* Set the card width */
@@ -232,7 +233,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   font-weight: bold;
-    font-size: 16px; /* Match card and button font size */
+  font-size: 16px; /* Match card and button font size */
   font-family: Arial, sans-serif; /* Match card and button font family */
 }
 
@@ -254,7 +255,8 @@ button:hover {
   font-family: Arial, sans-serif;
 }
 
-.arrow-up, .arrow-down {
+.arrow-up,
+.arrow-down {
   font-size: 16px;
   vertical-align: middle;
 }

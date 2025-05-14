@@ -13,8 +13,20 @@ import { AddTaskPopupComponent } from './add-task-popup/add-task-popup.component
 })
 export class AppComponent implements OnInit {
   title = 'foci-tasklist';
-  tasksList: { title: string; description?: string; dueDate?: string; isCompleted: boolean; createdAt: string }[] = [];
-  filteredTasks: { title: string; description?: string; dueDate?: string; isCompleted: boolean; createdAt: string }[] = [];
+  tasksList: {
+    title: string;
+    description?: string;
+    dueDate?: string;
+    isCompleted: boolean;
+    createdAt: string;
+  }[] = [];
+  filteredTasks: {
+    title: string;
+    description?: string;
+    dueDate?: string;
+    isCompleted: boolean;
+    createdAt: string;
+  }[] = [];
   filter = 'all'; // Default filter
   showPopup = false;
   showDeletePopup = false; // Track delete confirmation popup visibility
@@ -23,7 +35,10 @@ export class AppComponent implements OnInit {
   sortField: 'dueDate' | 'createdAt' | 'title' = 'dueDate';
   sortOrder: 'asc' | 'desc' = 'asc';
 
-  constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private taskService: TaskService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.taskService.tasks$.subscribe((tasks) => {
@@ -34,12 +49,12 @@ export class AppComponent implements OnInit {
   }
 
   sortTasksByDueDate(tasks: any[]): any[] {
-  return tasks.sort((a, b) => {
-    if (!a.dueDate) return 1; // Place tasks with no due date at the bottom
-    if (!b.dueDate) return -1;
-    return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime(); // Sort by due date
-  });
-}
+    return tasks.sort((a, b) => {
+      if (!a.dueDate) return 1; // Place tasks with no due date at the bottom
+      if (!b.dueDate) return -1;
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime(); // Sort by due date
+    });
+  }
 
   openPopup(): void {
     this.selectedTask = null; // Clear the selected task to ensure it's an "Add Task" popup
@@ -88,10 +103,12 @@ export class AppComponent implements OnInit {
         ...this.selectedTask,
         isCompleted: !this.selectedTask.isCompleted, // Toggle the completion status
       };
-      this.taskService.updateTask(this.selectedTask.id, updatedTask).subscribe(() => {
-        this.taskService.fetchTasks(); // Refresh the task list
-        this.selectedTask = null; // Clear the selected task
-      });
+      this.taskService
+        .updateTask(this.selectedTask.id, updatedTask)
+        .subscribe(() => {
+          this.taskService.fetchTasks(); // Refresh the task list
+          this.selectedTask = null; // Clear the selected task
+        });
     }
   }
 
@@ -110,13 +127,13 @@ export class AppComponent implements OnInit {
   }
 
   isPastDue(dueDate: string | undefined): boolean {
-  if (!dueDate) {
-    return false; // If no due date is provided, it's not past due
+    if (!dueDate) {
+      return false; // If no due date is provided, it's not past due
+    }
+    const today = new Date();
+    const dueDateObj = new Date(dueDate);
+    return dueDateObj < today; // Check if the due date is in the past
   }
-  const today = new Date();
-  const dueDateObj = new Date(dueDate);
-  return dueDateObj < today; // Check if the due date is in the past
-}
 
   onFilterChange(event: Event): void {
     const filter = (event.target as HTMLSelectElement).value; // Cast to HTMLSelectElement
@@ -125,7 +142,10 @@ export class AppComponent implements OnInit {
   }
 
   onSortChange(event: Event): void {
-    const value = (event.target as HTMLSelectElement).value as 'dueDate' | 'createdAt' | 'title';
+    const value = (event.target as HTMLSelectElement).value as
+      | 'dueDate'
+      | 'createdAt'
+      | 'title';
     this.sortField = value;
     this.applyFilterAndSort();
   }
@@ -166,8 +186,10 @@ export class AppComponent implements OnInit {
         aValue = '';
         bValue = '';
       }
-      if ((aValue ?? '') < (bValue ?? '')) return this.sortOrder === 'asc' ? -1 : 1;
-      if ((aValue ?? '') > (bValue ?? '')) return this.sortOrder === 'asc' ? 1 : -1;
+      if ((aValue ?? '') < (bValue ?? ''))
+        return this.sortOrder === 'asc' ? -1 : 1;
+      if ((aValue ?? '') > (bValue ?? ''))
+        return this.sortOrder === 'asc' ? 1 : -1;
       return 0;
     });
 

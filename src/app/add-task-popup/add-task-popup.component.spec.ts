@@ -18,7 +18,10 @@ describe('AddTaskPopupComponent', () => {
   };
 
   beforeEach(async () => {
-    const taskServiceSpy = jasmine.createSpyObj('TaskService', ['addTask', 'updateTask']);
+    const taskServiceSpy = jasmine.createSpyObj('TaskService', [
+      'addTask',
+      'updateTask',
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [AddTaskPopupComponent, HttpClientTestingModule, FormsModule], // Include necessary modules
@@ -49,7 +52,11 @@ describe('AddTaskPopupComponent', () => {
   });
 
   it('should call addTask when saving a new task', () => {
-    const newTask = { title: 'New Task', description: 'New Description', dueDate: '2025-05-20' };
+    const newTask = {
+      title: 'New Task',
+      description: 'New Description',
+      dueDate: '2025-05-20',
+    };
     component.task = null; // No existing task
     component.taskData = newTask;
 

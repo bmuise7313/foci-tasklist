@@ -1,5 +1,4 @@
 <div class="container">
-
   <!-- Buttons in a 2x2 grid -->
   <div class="button-grid" [class.single-button]="!selectedTask">
     <button (click)="openPopup()">Add Task</button>
@@ -7,7 +6,7 @@
       <button (click)="openEditPopup()">Edit Task</button>
       <button (click)="openDeletePopup()">Delete Task</button>
       <button (click)="toggleCompletion()">
-        {{ selectedTask?.isCompleted ? 'Mark Incomplete' : 'Mark Completed' }}
+        {{ selectedTask?.isCompleted ? "Mark Incomplete" : "Mark Completed" }}
       </button>
     </ng-container>
   </div>
@@ -21,7 +20,7 @@
       <option value="overdue">Overdue</option>
     </select>
 
-    <label for="sort" style="margin-left: 20px;">Sort By:</label>
+    <label for="sort" style="margin-left: 20px">Sort By:</label>
     <span class="sort-group">
       <select id="sort" (change)="onSortChange($event)">
         <option value="dueDate">Due Date</option>
@@ -34,8 +33,13 @@
         (click)="toggleSortOrder()"
         [title]="sortOrder === 'asc' ? 'Ascending' : 'Descending'"
       >
-        <span [ngClass]="{'arrow-up': sortOrder === 'asc', 'arrow-down': sortOrder === 'desc'}">
-          {{ sortOrder === 'asc' ? '▲' : '▼' }}
+        <span
+          [ngClass]="{
+            'arrow-up': sortOrder === 'asc',
+            'arrow-down': sortOrder === 'desc'
+          }"
+        >
+          {{ sortOrder === "asc" ? "▲" : "▼" }}
         </span>
       </button>
     </span>
@@ -57,10 +61,10 @@
       (click)="selectTask(task)"
     >
       <h3>{{ task.title }}</h3>
-      <p><strong>Due Date:</strong> {{ task.dueDate || 'N/A' }}</p>
-      <p><strong>Completed:</strong> {{ task.isCompleted ? 'Yes' : 'No' }}</p>
+      <p><strong>Due Date:</strong> {{ task.dueDate || "N/A" }}</p>
+      <p><strong>Completed:</strong> {{ task.isCompleted ? "Yes" : "No" }}</p>
       <p><strong>Created At:</strong> {{ task.createdAt }}</p>
-      <p><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
+      <p><strong>Description:</strong> {{ task.description || "N/A" }}</p>
     </div>
   </div>
 

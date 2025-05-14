@@ -10,13 +10,39 @@ describe('AppComponent', () => {
   let taskService: jasmine.SpyObj<TaskService>;
 
   const mockTasks = [
-    { id: '1', title: 'Task 1', description: 'Description 1', dueDate: '2025-05-15', isCompleted: false, createdAt: '2025-05-13' },
-    { id: '2', title: 'Task 2', description: 'Description 2', dueDate: '2025-05-16', isCompleted: true, createdAt: '2025-05-13' },
-    { id: '3', title: 'Task 3', description: 'Description 3', dueDate: undefined, isCompleted: false, createdAt: '2025-05-13' },
+    {
+      id: '1',
+      title: 'Task 1',
+      description: 'Description 1',
+      dueDate: '2025-05-15',
+      isCompleted: false,
+      createdAt: '2025-05-13',
+    },
+    {
+      id: '2',
+      title: 'Task 2',
+      description: 'Description 2',
+      dueDate: '2025-05-16',
+      isCompleted: true,
+      createdAt: '2025-05-13',
+    },
+    {
+      id: '3',
+      title: 'Task 3',
+      description: 'Description 3',
+      dueDate: undefined,
+      isCompleted: false,
+      createdAt: '2025-05-13',
+    },
   ];
 
   beforeEach(async () => {
-    const taskServiceSpy = jasmine.createSpyObj('TaskService', ['tasks$', 'fetchTasks', 'deleteTask', 'updateTask']);
+    const taskServiceSpy = jasmine.createSpyObj('TaskService', [
+      'tasks$',
+      'fetchTasks',
+      'deleteTask',
+      'updateTask',
+    ]);
     taskServiceSpy.tasks$ = of(mockTasks);
 
     await TestBed.configureTestingModule({
@@ -68,19 +94,18 @@ describe('AppComponent', () => {
     expect(component.showDeletePopup).toBeFalse();
   });
 
-it('should delete a task and refresh the task list', () => {
-  const task = mockTasks[0];
-  component.selectedTask = task;
-  taskService.deleteTask.and.returnValue(of(null)); // Mock the deleteTask response
+  it('should delete a task and refresh the task list', () => {
+    const task = mockTasks[0];
+    component.selectedTask = task;
+    taskService.deleteTask.and.returnValue(of(null)); // Mock the deleteTask response
 
-  component.deleteTask();
+    component.deleteTask();
 
-  // Ensure the argument passed to deleteTask is a string
-  expect(taskService.deleteTask).toHaveBeenCalledWith(task.id);
-  expect(taskService.deleteTask).toHaveBeenCalledTimes(1);
-  expect(component.selectedTask).toBeNull();
-});
-
+    // Ensure the argument passed to deleteTask is a string
+    expect(taskService.deleteTask).toHaveBeenCalledWith(task.id);
+    expect(taskService.deleteTask).toHaveBeenCalledTimes(1);
+    expect(component.selectedTask).toBeNull();
+  });
 
   it('should filter tasks by completed status', () => {
     component.filter = 'completed';
@@ -95,7 +120,9 @@ it('should delete a task and refresh the task list', () => {
   });
 
   it('should filter tasks by overdue status', () => {
-    spyOn(component, 'isPastDue').and.callFake((dueDate) => dueDate === '2025-05-15');
+    spyOn(component, 'isPastDue').and.callFake(
+      (dueDate) => dueDate === '2025-05-15'
+    );
     component.filter = 'overdue';
     component.applyFilter();
     expect(component.filteredTasks).toEqual([mockTasks[0]]);

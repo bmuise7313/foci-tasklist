@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../services/task.service';
@@ -25,6 +32,7 @@ export class AddTaskPopupComponent implements OnChanges {
     }
   }
 
+  // Validate the due date format
   validateDueDate(): void {
     if (!this.taskData.dueDate) {
       this.dueDateError = false;
@@ -33,7 +41,7 @@ export class AddTaskPopupComponent implements OnChanges {
     const date = new Date(this.taskData.dueDate);
     this.dueDateError = isNaN(date.getTime());
   }
-
+  // Save the task (add or update)
   saveTask(): void {
     this.validateDueDate();
     if (this.dueDateError) return;
@@ -50,7 +58,7 @@ export class AddTaskPopupComponent implements OnChanges {
       });
     }
   }
-
+  // Cancel the operation
   closePopup(): void {
     this.close.emit(); // Notify parent to close the popup
   }
