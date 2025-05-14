@@ -5,7 +5,7 @@ This project is a task management application built with Angular for the fronten
 ## Prerequisites
 
 To run this application, ensure the following are installed on your system:
-- --Node.js--: Version 18.19 or higher (Developed on version 24.0.1)
+- --Node.js--: Version 18.19 or higher 
 - --npm--: Comes bundled with Node.js
 
 ## Installation
