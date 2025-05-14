@@ -20,6 +20,25 @@
       <option value="incomplete">Incomplete</option>
       <option value="overdue">Overdue</option>
     </select>
+
+    <label for="sort" style="margin-left: 20px;">Sort By:</label>
+    <span class="sort-group">
+      <select id="sort" (change)="onSortChange($event)">
+        <option value="dueDate">Due Date</option>
+        <option value="createdAt">Creation Date</option>
+        <option value="title">Title (A-Z)</option>
+      </select>
+      <button
+        type="button"
+        class="sort-order-btn"
+        (click)="toggleSortOrder()"
+        [title]="sortOrder === 'asc' ? 'Ascending' : 'Descending'"
+      >
+        <span [ngClass]="{'arrow-up': sortOrder === 'asc', 'arrow-down': sortOrder === 'desc'}">
+          {{ sortOrder === 'asc' ? '▲' : '▼' }}
+        </span>
+      </button>
+    </span>
   </div>
 
   <!-- Message container -->

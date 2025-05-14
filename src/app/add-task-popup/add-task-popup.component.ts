@@ -14,6 +14,7 @@ export class AddTaskPopupComponent implements OnChanges {
   @Input() task: any = null; // Input for the task to edit
   @Output() close = new EventEmitter<void>();
   taskData = { title: '', description: '', dueDate: '' };
+  dueDateError = false;
 
   constructor(private taskService: TaskService) {}
 
@@ -24,7 +25,19 @@ export class AddTaskPopupComponent implements OnChanges {
     }
   }
 
+  validateDueDate(): void {
+    if (!this.taskData.dueDate) {
+      this.dueDateError = false;
+      return;
+    }
+    const date = new Date(this.taskData.dueDate);
+    this.dueDateError = isNaN(date.getTime());
+  }
+
   saveTask(): void {
+    this.validateDueDate();
+    if (this.dueDateError) return;
+
     if (this.task?.id) {
       // Update the task if it already exists
       this.taskService.updateTask(this.task.id, this.taskData).subscribe(() => {

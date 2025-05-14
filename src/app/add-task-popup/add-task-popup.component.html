@@ -1,19 +1,48 @@
 <div class="popup">
   <h2>{{ task?.id ? 'Edit Task' : 'Add Task' }}</h2>
-  <form (ngSubmit)="saveTask()">
+  <form (ngSubmit)="saveTask()" #taskForm="ngForm" novalidate>
     <label>
       Title:
-      <input type="text" [(ngModel)]="taskData.title" name="title" required />
+      <input
+        type="text"
+        [(ngModel)]="taskData.title"
+        name="title"
+        required
+        maxlength="25"
+        #titleInput="ngModel"
+      />
+      <span class="error" *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
+        Title is required and must be at most 25 characters.
+      </span>
     </label>
     <label>
       Description:
-      <textarea [(ngModel)]="taskData.description" name="description"></textarea>
+      <textarea
+        [(ngModel)]="taskData.description"
+        name="description"
+        maxlength="500"
+        #descInput="ngModel"
+      ></textarea>
+      <span class="error" *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)">
+        Description must be at most 500 characters.
+      </span>
     </label>
     <label>
       Due Date:
-      <input type="date" [(ngModel)]="taskData.dueDate" name="dueDate" />
+      <input
+        type="date"
+        [(ngModel)]="taskData.dueDate"
+        name="dueDate"
+        #dueDateInput="ngModel"
+        (blur)="validateDueDate()"
+      />
+      <span class="error" *ngIf="dueDateError">
+        Please enter a valid date.
+      </span>
     </label>
-    <button type="submit">{{ task?.id ? 'Save Changes' : 'Add Task' }}</button>
+    <button type="submit" [disabled]="taskForm.invalid || dueDateError">
+      {{ task?.id ? 'Save Changes' : 'Add Task' }}
+    </button>
     <button type="button" (click)="closePopup()">Cancel</button>
   </form>
 </div>
