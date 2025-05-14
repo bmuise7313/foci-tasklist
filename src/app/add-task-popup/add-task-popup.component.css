@@ -3,12 +3,51 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #1e1e1e; /* Dark grey background */
+  border: 2px solid #90caf9; /* Light blue border */
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); /* Slightly stronger shadow */
   z-index: 1000;
+  border-radius: 8px;
+  color: #e0e0e0; /* Light grey text */
+  font-size: 16px; /* Match card and button font size */
+  font-family: Arial, sans-serif; /* Match card and button font family */
+  width: 60%; /* Set the width to triple its original size */
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #424242; /* Grey border */
+  border-radius: 4px;
+  background-color: #2e2e2e; /* Darker grey */
+  color: #e0e0e0; /* Light grey text */
+  font-size: 16px; /* Match font size */
+  font-family: Arial, sans-serif; /* Match font family */
 }
 
 button {
   margin: 5px;
+  padding: 10px;
+  border: 1px solid #424242; /* Grey border */
+  border-radius: 5px;
+  background-color: #1e88e5; /* Blue background */
+  color: #e0e0e0; /* Light grey text */
+  font-size: 16px; /* Match font size */
+  font-family: Arial, sans-serif; /* Match font family */
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+button:hover {
+  background-color: #1565c0; /* Darker blue */
+  color: #ffffff; /* White text */
 }

@@ -1,46 +1,49 @@
 <div class="container">
-  <h1>{{ title }}</h1>
+
+  <!-- Buttons in a 2x2 grid -->
+  <div class="button-grid" [class.single-button]="!selectedTask">
+    <button (click)="openPopup()">Add Task</button>
+    <ng-container *ngIf="selectedTask">
+      <button (click)="openEditPopup()">Edit Task</button>
+      <button (click)="openDeletePopup()">Delete Task</button>
+      <button (click)="toggleCompletion()">
+        {{ selectedTask?.isCompleted ? 'Mark Incomplete' : 'Mark Completed' }}
+      </button>
+    </ng-container>
+  </div>
+
   <div class="filter-container">
     <label for="filter">Filter Tasks:</label>
-<select id="filter" (change)="onFilterChange($event)">
-  <option value="all">All</option>
-  <option value="completed">Completed</option>
-  <option value="incomplete">Incomplete</option>
-  <option value="overdue">Overdue</option>
-</select>
+    <select id="filter" (change)="onFilterChange($event)">
+      <option value="all">All</option>
+      <option value="completed">Completed</option>
+      <option value="incomplete">Incomplete</option>
+      <option value="overdue">Overdue</option>
+    </select>
   </div>
-  <button (click)="openPopup()">Add Task</button>
-  <button [disabled]="!selectedTask" (click)="openEditPopup()">Edit Task</button>
-  <button [disabled]="!selectedTask" (click)="openDeletePopup()">Delete Task</button>
-  <button [disabled]="!selectedTask" (click)="toggleCompletion()">
-    {{ selectedTask?.isCompleted ? 'Mark Incomplete' : 'Mark Completed' }}
-  </button>
-  <table class="task-table">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Due Date</th>
-        <th>Completed</th>
-        <th>Created At</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let task of filteredTasks"
-        [class.selected]="task === selectedTask"
-        [class.completed]="task.isCompleted"
-        [class.past-due]="!task.isCompleted && isPastDue(task.dueDate)"
-        (click)="selectTask(task)"
-      >
-        <td>{{ task.title }}</td>
-        <td>{{ task.description || 'N/A' }}</td>
-        <td>{{ task.dueDate || 'N/A' }}</td>
-        <td>{{ task.isCompleted ? 'Yes' : 'No' }}</td>
-        <td>{{ task.createdAt }}</td>
-      </tr>
-    </tbody>
-  </table>
+
+  <!-- Message container -->
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+
+  <!-- Scrollable task list container -->
+  <div class="task-list-container">
+    <div
+      class="task-card"
+      *ngFor="let task of filteredTasks"
+      [class.selected]="task === selectedTask"
+      [class.completed]="task.isCompleted"
+      [class.past-due]="!task.isCompleted && isPastDue(task.dueDate)"
+      (click)="selectTask(task)"
+    >
+      <h3>{{ task.title }}</h3>
+      <p><strong>Due Date:</strong> {{ task.dueDate || 'N/A' }}</p>
+      <p><strong>Completed:</strong> {{ task.isCompleted ? 'Yes' : 'No' }}</p>
+      <p><strong>Created At:</strong> {{ task.createdAt }}</p>
+      <p><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
+    </div>
+  </div>
 
   <app-add-task-popup
     *ngIf="showPopup"
