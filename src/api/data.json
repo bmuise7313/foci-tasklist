@@ -22,13 +22,5 @@
     "dueDate": "2025-05-12",
     "isCompleted": false,
     "createdAt": "2025-05-13T18:59:05.527Z"
-  },
-  {
-    "id": "1747162872298",
-    "title": "test2",
-    "description": "test",
-    "dueDate": "",
-    "isCompleted": true,
-    "createdAt": "2025-05-13T19:01:12.298Z"
   }
 ]

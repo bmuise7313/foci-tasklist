@@ -5,14 +5,14 @@ This project is a task management application built with Angular for the fronten
 ## Prerequisites
 
 To run this application, ensure the following are installed on your system:
-- --Node.js--: Version 16.x or higher
+- --Node.js--: Version 18.19 or higher (Developed on version 24.0.1)
 - --npm--: Comes bundled with Node.js
 
 ## Installation
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/bmuise7313/foci-tasklist
    cd foci-tasklist
 
 2. Install the required dependencies:

@@ -7,28 +7,8 @@ import { TaskService } from '../services/task.service';
   selector: 'app-add-task-popup',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  template: `
-    <div class="popup">
-      <h2>{{ task?.id ? 'Edit Task' : 'Add Task' }}</h2>
-      <form (ngSubmit)="saveTask()">
-        <label>
-          Title:
-          <input type="text" [(ngModel)]="taskData.title" name="title" required />
-        </label>
-        <label>
-          Description:
-          <input type="text" [(ngModel)]="taskData.description" name="description" />
-        </label>
-        <label>
-          Due Date:
-          <input type="date" [(ngModel)]="taskData.dueDate" name="dueDate" />
-        </label>
-        <button type="submit">{{ task?.id ? 'Save Changes' : 'Add Task' }}</button>
-        <button type="button" (click)="closePopup()">Cancel</button>
-      </form>
-    </div>
-  `,
-  styleUrls: ['./add-task-popup.component.css'],
+  templateUrl: './add-task-popup.component.html', // Use an external HTML file
+  styleUrls: ['./add-task-popup.component.css'], // Use an external CSS file
 })
 export class AddTaskPopupComponent implements OnChanges {
   @Input() task: any = null; // Input for the task to edit

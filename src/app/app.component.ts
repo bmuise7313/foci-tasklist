@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   showPopup = false;
   showDeletePopup = false; // Track delete confirmation popup visibility
   selectedTask: any = null; // Track the selected task
+  message: string | null = null; // Message to display to the user
 
   constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
 }
 
   openPopup(): void {
+    this.selectedTask = null; // Clear the selected task to ensure it's an "Add Task" popup
     this.showPopup = true;
   }
 
@@ -52,7 +54,9 @@ export class AppComponent implements OnInit {
   }
 
   openEditPopup(): void {
-    this.showPopup = true; // Open the popup for editing
+    if (this.selectedTask) {
+      this.showPopup = true; // Open the popup for editing
+    }
   }
 
   openDeletePopup(): void {
@@ -65,10 +69,13 @@ export class AppComponent implements OnInit {
 
   deleteTask(): void {
     if (this.selectedTask) {
+      const taskTitle = this.selectedTask.title;
       this.taskService.deleteTask(this.selectedTask.id).subscribe(() => {
-        this.closeDeletePopup(); // Close the popup after deletion
+        this.message = `Task "${taskTitle}" has been deleted successfully.`;
+        this.clearMessageAfterDelay();
         this.taskService.fetchTasks(); // Refresh the task list
         this.selectedTask = null; // Clear the selected task
+        this.showDeletePopup = false; // Close the delete confirmation popup
       });
     }
   }
@@ -113,5 +120,31 @@ export class AppComponent implements OnInit {
     const filter = (event.target as HTMLSelectElement).value; // Cast to HTMLSelectElement
     this.filter = filter; // Update the filter
     this.applyFilter(); // Reapply the filter
+  }
+
+  // Example: Add a task
+  addTask(task: any): void {
+    this.taskService.addTask(task).subscribe(() => {
+      this.message = `Task "${task.title}" has been added successfully.`;
+      this.clearMessageAfterDelay();
+      this.taskService.fetchTasks(); // Refresh the task list
+    });
+  }
+
+  // Example: Edit a task
+  editTask(task: any): void {
+    this.taskService.updateTask(task.id, task).subscribe(() => {
+      this.message = `Task "${task.title}" has been updated successfully.`;
+      this.clearMessageAfterDelay();
+      this.taskService.fetchTasks(); // Refresh the task list
+    });
+  }
+
+  // Clear the message after a delay
+  private clearMessageAfterDelay(): void {
+    setTimeout(() => {
+      this.message = null;
+      this.cdr.detectChanges(); // Trigger change detection
+    }, 5000); // Clear the message after 3 seconds
   }
 }

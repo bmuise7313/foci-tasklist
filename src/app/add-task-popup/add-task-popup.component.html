@@ -1,1 +1,19 @@
-<p>add-task-popup works!</p>
+<div class="popup">
+  <h2>{{ task?.id ? 'Edit Task' : 'Add Task' }}</h2>
+  <form (ngSubmit)="saveTask()">
+    <label>
+      Title:
+      <input type="text" [(ngModel)]="taskData.title" name="title" required />
+    </label>
+    <label>
+      Description:
+      <textarea [(ngModel)]="taskData.description" name="description"></textarea>
+    </label>
+    <label>
+      Due Date:
+      <input type="date" [(ngModel)]="taskData.dueDate" name="dueDate" />
+    </label>
+    <button type="submit">{{ task?.id ? 'Save Changes' : 'Add Task' }}</button>
+    <button type="button" (click)="closePopup()">Cancel</button>
+  </form>
+</div>
