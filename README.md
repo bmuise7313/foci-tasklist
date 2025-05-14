@@ -2,6 +2,8 @@
 
 This project is a task management application built with Angular for the frontend and a Node.js/Express API for the backend. It allows users to manage tasks with features such as adding, editing, deleting, and filtering tasks.
 
+I decided to go with a simple express API instead of a robust Spring Boot api to keep things lightweight, and simply read/write data from JSON file. UI is clean card style for tasks. Originally I had tasks in a table but I viewed the card style as a more mobile friendly approach, as a tasklist is something that someone would most likely use from their phone.
+
 ## Prerequisites
 
 To run this application, ensure the following are installed on your system:
@@ -69,7 +71,7 @@ Here are the simple API endpoints for task management
     - Completed
     - Incomplete
     - Overdue
-    
+
 - Sort Tasks by:
     - Due Date (default)
     - Creation Date
