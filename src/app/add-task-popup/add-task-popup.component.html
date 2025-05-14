@@ -1,5 +1,5 @@
 <div class="popup">
-  <h2>{{ task?.id ? 'Edit Task' : 'Add Task' }}</h2>
+  <h2>{{ task?.id ? "Edit Task" : "Add Task" }}</h2>
   <form (ngSubmit)="saveTask()" #taskForm="ngForm" novalidate>
     <label>
       Title:
@@ -11,7 +11,10 @@
         maxlength="25"
         #titleInput="ngModel"
       />
-      <span class="error" *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
+      <span
+        class="error"
+        *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)"
+      >
         Title is required and must be at most 25 characters.
       </span>
     </label>
@@ -23,7 +26,10 @@
         maxlength="500"
         #descInput="ngModel"
       ></textarea>
-      <span class="error" *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)">
+      <span
+        class="error"
+        *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)"
+      >
         Description must be at most 500 characters.
       </span>
     </label>
@@ -41,7 +47,7 @@
       </span>
     </label>
     <button type="submit" [disabled]="taskForm.invalid || dueDateError">
-      {{ task?.id ? 'Save Changes' : 'Add Task' }}
+      {{ task?.id ? "Save Changes" : "Add Task" }}
     </button>
     <button type="button" (click)="closePopup()">Cancel</button>
   </form>
